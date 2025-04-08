@@ -284,6 +284,34 @@ trait ElementWrapThemeTrait {
   }
 
   /**
+   * Wrap an element with `lg` rounded corners.
+   *
+   * @param array $element
+   *   The render array.
+   * @param array $bg_color
+   *   Optional; The background color. Allowed values are:
+   *    - 'light-gray'.
+   *    - 'light-green'.
+   *    - 'white'.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function wrapRoundedCornersBadge(array $items, $bg_color = NULL): array {
+    $items = $this->filterEmptyElements($items);
+    if (empty($items)) {
+      // Element is empty, so no need to wrap it.
+      return [];
+    }
+    return [
+      '#theme' => 'server_theme_container_rounded_corners_badge',
+      '#element' => $items,
+      '#bg_color' => $bg_color,
+    ];
+  }
+
+
+  /**
    * Wrap an element with `full` rounded corners.
    *
    * This can be used for example to make a profile picture circular.
@@ -305,6 +333,17 @@ trait ElementWrapThemeTrait {
       '#theme' => 'server_theme_container_rounded_corners_full',
       '#items' => $element,
     ];
+  }
+
+  /**
+   * Wrap an element with a card.
+   *
+   * @param $text
+   *
+   * @return array
+   */
+  protected function getCardCtaText($text) {
+    return $this->wrapTextResponsiveFontSize($text, 'sm');
   }
 
   /**

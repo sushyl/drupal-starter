@@ -21,6 +21,7 @@ use Drupal\server_general\ThemeTrait\HeroThemeTrait;
 use Drupal\server_general\ThemeTrait\InfoCardThemeTrait;
 use Drupal\server_general\ThemeTrait\LinkThemeTrait;
 use Drupal\server_general\ThemeTrait\NewsTeasersThemeTrait;
+use Drupal\server_general\ThemeTrait\PeopleCardThemeTrait;
 use Drupal\server_general\ThemeTrait\PeopleTeasersThemeTrait;
 use Drupal\server_general\ThemeTrait\QuickLinksThemeTrait;
 use Drupal\server_general\ThemeTrait\QuoteThemeTrait;
@@ -51,6 +52,7 @@ class StyleGuideController extends ControllerBase {
   use ExpandingTextThemeTrait;
   use HeroThemeTrait;
   use InfoCardThemeTrait;
+  use PeopleCardThemeTrait;
   use LinkThemeTrait;
   use NewsTeasersThemeTrait;
   use PeopleTeasersThemeTrait;
@@ -187,6 +189,12 @@ class StyleGuideController extends ControllerBase {
 
     $element = $this->getPeopleTeasers();
     $build[] = $this->wrapElementNoContainer($element, 'Element: People teasers');
+
+    $element = $this->getPersonCard();
+    $build[] = $this->wrapElementNoContainer($element, 'Element: Person card');
+
+    $element = $this->getPeopleCards();
+    $build[] = $this->wrapElementNoContainer($element, 'Element: People cards');
 
     $element = $this->getQuote();
     $build[] = $this->wrapElementNoContainer($element, 'Element: Quote');
