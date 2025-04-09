@@ -238,12 +238,19 @@ function server_theme_theme() {
   // Simple card.
   $info['server_theme_inner_element_contact_cta'] = [
     'variables' => [
-      // A render array.
-      'email' => [],
-      // The background color.
-      'phone' => [],
+      'elements' => [],
     ],
   ];
+
+  $info['server_theme_contact_link'] = [
+      'variables' => [
+        'url' => NULL,
+        'text' => NULL,
+        'icon_path' => NULL,
+        'type' => NULL,
+      ],
+      'template' => 'server-theme-contact-link',
+    ];
 
   // Card with elements positioned in the center of it.
   $info['server_theme_inner_element_layout__centered'] = [

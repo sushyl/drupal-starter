@@ -112,7 +112,7 @@ trait InnerElementLayoutThemeTrait {
     $email_text = $this->getCardCtaText($this->t('Email'));
     $phone_text = $this->getCardCtaText($this->t('Phone'));
     $email_element = ['url' => "mailto::{$email}", 'text' => $email_text ];
-    $phone_element = ['url' => "mailto::{$phone}", 'text' => $phone_text ];
+    $phone_element = ['url' => "tel:{$phone}", 'text' => $phone_text ];
     $elements[] = $this->buildInnerElementContactCta($email_element, $phone_element);
     return $this->buildInnerElementLayoutCard($elements, 'white');
   }
@@ -177,11 +177,29 @@ trait InnerElementLayoutThemeTrait {
    * @return array
    *   Render array.
    */
-  protected function buildInnerElementContactCta($email = [], $phone = []): array {
+  protected function buildInnerElementContactCta(array $email = [], array $phone = []): array {
+    $elements = [];
+    if (!empty($email['url'])) {
+      $elements[] = [
+        '#theme' => 'server_theme_contact_link',
+        '#url' => $email['url'],
+        '#text' => $email['text'],
+        '#type' => 'email',
+      ];
+    }
+
+    if (!empty($phone['url'])) {
+      $elements[] = [
+        '#theme' => 'server_theme_contact_link',
+        '#url' => $phone['url'],
+        '#text' => $phone['text'],
+        '#type' => 'phone',
+      ];
+    }
+
     return [
       '#theme' => 'server_theme_inner_element_contact_cta',
-      '#email' => $email,
-      '#phone' => $phone,
+      '#elements' => $elements,
     ];
   }
 
