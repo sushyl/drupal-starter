@@ -21,6 +21,7 @@ use Drupal\server_general\ThemeTrait\HeroThemeTrait;
 use Drupal\server_general\ThemeTrait\InfoCardThemeTrait;
 use Drupal\server_general\ThemeTrait\LinkThemeTrait;
 use Drupal\server_general\ThemeTrait\NewsTeasersThemeTrait;
+use Drupal\server_general\ThemeTrait\PeopleCardThemeTrait;
 use Drupal\server_general\ThemeTrait\PeopleTeasersThemeTrait;
 use Drupal\server_general\ThemeTrait\QuickLinksThemeTrait;
 use Drupal\server_general\ThemeTrait\QuoteThemeTrait;
@@ -51,6 +52,7 @@ class StyleGuideController extends ControllerBase {
   use ExpandingTextThemeTrait;
   use HeroThemeTrait;
   use InfoCardThemeTrait;
+  use PeopleCardThemeTrait;
   use LinkThemeTrait;
   use NewsTeasersThemeTrait;
   use PeopleTeasersThemeTrait;
@@ -188,6 +190,12 @@ class StyleGuideController extends ControllerBase {
     $element = $this->getPeopleTeasers();
     $build[] = $this->wrapElementNoContainer($element, 'Element: People teasers');
 
+    $element = $this->getPersonCard();
+    $build[] = $this->wrapElementNoContainer($element, 'Element: Person card');
+
+    $element = $this->getPeopleCards();
+    $build[] = $this->wrapElementNoContainer($element, 'Element: People cards');
+
     $element = $this->getQuote();
     $build[] = $this->wrapElementNoContainer($element, 'Element: Quote');
 
@@ -289,6 +297,134 @@ class StyleGuideController extends ControllerBase {
       $this->buildProcessedText('This is a directory list of awesome people'),
       $items,
     );
+  }
+
+
+  /**
+   * Get Person Card element.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function getPersonCard(): array {
+    $person = [
+      'name' => 'Jon Doe',
+      'email' => 'JonDoe@example.com',
+      'subtitle' => 'Paradigm Representative',
+      'badge' => 'Admin',
+      'phone' => "(555) 555-1234",
+    ];
+    $items[] = $this->buildInnerElementPersonCard(
+      $this->getPlaceholderPersonImage(128),
+      $person['name'],
+      $person['subtitle'],
+      $person['badge'],
+      $person['email'],
+      $person['phone'],
+    );
+    $cards = $this->buildElementPeopleCards(
+      $this->getRandomTitle(),
+      [],
+      $items,
+    );
+
+    // Add gray background for prominent box shadow.
+    return $this->wrapContainerWide($cards, 'light-gray');
+  }
+
+
+  /**
+   * Get People Card element.
+   *
+   * @return array
+   *   Render array.
+   */
+  protected function getPeopleCards(): array {
+    $items = [];
+    $people = [
+      [
+        'name' => 'Jane Cooper',
+        'email' => 'janeCooper@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+        'badge' => 'Admin',
+      ],
+      [
+        'name' => 'Smith Allen',
+        'email' => 'SmithAllen@example.com',
+        'phone' => "(555) 555-1234",
+        'badge' => 'Admin',
+      ],
+      [
+        'name' => 'Rick Morty',
+        'email' => 'RickMorty@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+        'badge' => 'Admin',
+      ],
+      [
+        'name' => 'David Bowie',
+        'email' => 'DavidBowie@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+        'badge' => 'Admin',
+      ],
+      [
+        'name' => 'Smith John',
+        'email' => 'SmithAllen@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+      ],
+      [
+        'name' => 'Jon Doe',
+        'email' => 'JonDoe@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+      ],
+      [
+        'name' => 'David Bowie',
+        'email' => 'DavidBowie@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+      ],
+      [
+        'name' => 'Rick Morty',
+        'email' => 'RickMorty@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+      ],
+      [
+        'name' => 'Smith Locke',
+        'email' => 'SmithAllen@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+      ],
+      [
+        'name' => 'Jon Doom',
+        'email' => 'JonDoe@example.com',
+        'phone' => "(555) 555-1234",
+        'subtitle' => 'Paradigm Representative',
+      ],
+    ];
+    foreach ($people as $person) {
+      $items[] = $this->buildInnerElementPersonCard(
+        $this->getPlaceholderPersonImage(128),
+        $person['name'],
+        $person['subtitle'] ?? '',
+        $person['badge'] ?? '',
+        $person['email'],
+        $person['phone'],
+      );
+    }
+
+    $cards = $this->buildElementPeopleCards(
+      $this->getRandomTitle(),
+      [],
+      $items,
+    );
+
+    // Gray background for prominent box shadow.
+    return $this->wrapContainerWide($cards, 'light-gray');
   }
 
   /**
